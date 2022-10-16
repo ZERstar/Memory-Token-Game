@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Web3 from 'web3'
 import './App.css';
 import MemoryToken from '../abis/MemoryToken.json'
-import brain from '../brain.png'
+import logo from '../logo.jpg'
 
 const CARD_ARRAY = [
   {
@@ -84,7 +84,7 @@ class App extends Component {
     // Load smart contract
     const networkId = await web3.eth.net.getId()
     const networkData = MemoryToken.networks[networkId]
-    if(networkData) {
+    if (networkData) {
       const abi = MemoryToken.abi
       const address = networkData.address
       const token = new web3.eth.Contract(abi, address)
@@ -107,13 +107,13 @@ class App extends Component {
 
   chooseImage = (cardId) => {
     cardId = cardId.toString()
-    if(this.state.cardsWon.includes(cardId)) {
+    if (this.state.cardsWon.includes(cardId)) {
       return window.location.origin + '/images/white.png'
     }
-    else if(this.state.cardsChosenId.includes(cardId)) {
+    else if (this.state.cardsChosenId.includes(cardId)) {
       return CARD_ARRAY[cardId].img
     } else {
-      return window.location.origin + '/images/blank.png'
+      return window.location.origin + '/images/tile.jpg'
     }
   }
 
@@ -135,7 +135,7 @@ class App extends Component {
     const optionOneId = this.state.cardsChosenId[0]
     const optionTwoId = this.state.cardsChosenId[1]
 
-    if(optionOneId == optionTwoId) {
+    if (optionOneId == optionTwoId) {
       alert('You have clicked the same image!')
     } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
       alert('You found a match')
@@ -143,13 +143,13 @@ class App extends Component {
         this.state.account,
         window.location.origin + CARD_ARRAY[optionOneId].img.toString()
       )
-      .send({ from: this.state.account })
-      .on('transactionHash', (hash) => {
-        this.setState({
-          cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
-          tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+        .send({ from: this.state.account })
+        .on('transactionHash', (hash) => {
+          this.setState({
+            cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
+            tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+          })
         })
-      })
     } else {
       alert('Sorry, try again')
     }
@@ -181,13 +181,13 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
           <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.dappuniversity.com/bootcamp"
+            className="navbar-brand col-sm-7 col-md-5 mr-0"
+            href="https://links.aaruush.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
-          <img src={brain} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp; Memory Tokens
+            <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
+            &nbsp; Memory Tokens
           </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -199,19 +199,19 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <h1 className="d-4">Start matching now!</h1>
+                <h1 className="d-4">Let's Play!</h1>
 
                 <div className="grid mb-4" >
 
-                  { this.state.cardArray.map((card, key) => {
-                    return(
+                  {this.state.cardArray.map((card, key) => {
+                    return (
                       <img
                         key={key}
                         src={this.chooseImage(key)}
                         data-id={key}
                         onClick={(event) => {
                           let cardId = event.target.getAttribute('data-id')
-                          if(!this.state.cardsWon.includes(cardId.toString())) {
+                          if (!this.state.cardsWon.includes(cardId.toString())) {
                             this.flipCard(cardId)
                           }
                         }}
@@ -228,8 +228,8 @@ class App extends Component {
 
                   <div className="grid mb-4" >
 
-                    { this.state.tokenURIs.map((tokenURI, key) => {
-                      return(
+                    {this.state.tokenURIs.map((tokenURI, key) => {
+                      return (
                         <img
                           key={key}
                           src={tokenURI}
