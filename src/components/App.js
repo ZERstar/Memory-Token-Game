@@ -179,74 +179,72 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-7 col-md-5 mr-0"
-            href="https://links.aaruush.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-            &nbsp; Memory Tokens
-          </a>
-          <ul className="navbar-nav px-3">
-            <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-              <small className="text-muted"><span id="account">{this.state.account}</span></small>
-            </li>
-          </ul>
-        </nav>
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                <h1 className="d-4">Let's Play!</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container">
+            <a class="navbar-brand me-2" href="https://mdbgo.com/">
+              <img
+                class="m-2"
+                src={logo}
+                height="35"
+                alt="MDB Logo"
+                loading="lazy"
+              />
+              Memory Token
+            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#">{this.state.account}</a>
+              </li>
+            </ul>
 
-                <div className="grid mb-4" >
-
-                  {this.state.cardArray.map((card, key) => {
-                    return (
-                      <img
-                        key={key}
-                        src={this.chooseImage(key)}
-                        data-id={key}
-                        onClick={(event) => {
-                          let cardId = event.target.getAttribute('data-id')
-                          if (!this.state.cardsWon.includes(cardId.toString())) {
-                            this.flipCard(cardId)
-                          }
-                        }}
-                      />
-                    )
-                  })}
-
-
-                </div>
-
-                <div>
-
-                  <h5>Tokens Collected:<span id="result">&nbsp;{this.state.tokenURIs.length}</span></h5>
-
-                  <div className="grid mb-4" >
-
-                    {this.state.tokenURIs.map((tokenURI, key) => {
-                      return (
-                        <img
-                          key={key}
-                          src={tokenURI}
-                        />
-                      )
-                    })}
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </main>
           </div>
-        </div>
-      </div>
+        </nav>
+        <main role="main" className="main_container">
+
+          <h1 className="">Let's Play!</h1>
+
+          <div className="card_container" >
+
+            {this.state.cardArray.map((card, key) => {
+              return (
+                <img
+                  key={key}
+                  src={this.chooseImage(key)}
+                  data-id={key}
+                  onClick={(event) => {
+                    let cardId = event.target.getAttribute('data-id')
+                    if (!this.state.cardsWon.includes(cardId.toString())) {
+                      this.flipCard(cardId)
+                    }
+                  }}
+                />
+              )
+            })}
+
+
+          </div>
+
+          <div className='result_container'>
+
+            <h5>Tokens Collected:<span id="result">&nbsp;{this.state.tokenURIs.length}</span></h5>
+
+            <div className="result_img-container" >
+
+              {this.state.tokenURIs.map((tokenURI, key) => {
+                return (
+                  <img
+                    key={key}
+                    src={tokenURI}
+                  />
+                )
+              })}
+
+            </div>
+
+          </div>
+
+        </main>
+      </div >
     );
   }
 }
